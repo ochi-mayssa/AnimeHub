@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime & Manga Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Your existing styles remain unchanged */
+        body { background-color: #141414; color: #fff; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+        .navbar { background-color: #141414; position: sticky; top: 0; z-index: 999; }
+        .navbar-brand, .nav-link { color: #fff !important; font-weight: bold; }
+        .nav-link:hover { color: #e50914 !important; }
+        .neon-text { color: #e50914; }
+        .carousel-section { margin-bottom: 40px; }
+        .carousel-section h3 { font-size: 1.5rem; margin-bottom: 1rem; padding-left: 15px; }
+        .carousel { display: flex; overflow-x: auto; padding-bottom: 10px; }
+        .carousel::-webkit-scrollbar { display: none; }
+        .carousel .card { flex: 0 0 auto; width: 200px; margin-right: 15px; background: none; border: none; transition: transform 0.3s ease; }
+        .carousel .card:hover { transform: scale(1.08); cursor: pointer; }
+        .card-img-top { border-radius: 4px; height: 250px; object-fit: cover; }
+        .btn-danger { background-color: #e50914; border: none; }
+        footer { background-color: #141414; color: #aaa; margin-top: auto; }
+        footer a { color: #aaa; }
+        footer a:hover { color: #fff; }
+        .badge { font-size: 0.8rem; padding: 0.4em 0.6em; }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand neon-text" href="/">
+                <i class="fas fa-dragon"></i> AnimeHub
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'anime:list' %}">  
+                          <i class="fas fa-tv"></i> Anime
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'manga:list' %}">
+                            <i class="fas fa-book-open"></i> Manga
+                        </a>
+                    </li>
+<!-- In the navbar section -->
+<li class="nav-item">
+    <form class="d-flex ms-3" action="{% url 'core:search' %}" method="GET">
+        <div class="input-group">
+            <input type="text" 
+                   name="q" 
+                   class="form-control bg-dark text-white border-secondary" 
+                   placeholder="Search..." 
+                   aria-label="Search"
+                   style="min-width: 250px;">
+            <button class="btn btn-danger" type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
+</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow-1">
+        <div class="container mt-4">
+
+            <!-- Trending Anime Carousel -->
+             {% block content %}
+            <div class="carousel-section">
+                <h3>Animes Tendances <i class="fas fa-fire"></i></h3>
+                <div class="carousel">
+                    {% for anime in popular_animes %}
+                    <div class="card">
+                        {% if anime.cover %}
+                        <img src="{{ anime.cover.url }}" class="card-img-top" alt="{{ anime.title }}">
+                        {% endif %}
+                        <div class="card-body p-2">
+                            <h6 class="card-title text-white">{{ anime.title|truncatechars:20 }}</h6>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-danger">{{ anime.rating }}/5.0</span>
+                                {% if anime.slug %}
+                                <a href="{% url 'anime:detail' anime.slug %}" class="btn btn-sm btn-danger mt-2">
+                                    <i class="fas fa-play"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-white">Aucun anime tendance pour le moment.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Popular Manga Carousel -->
+            <div class="carousel-section mt-5">
+                <h3>Mangas Populaires <i class="fas fa-bookmark"></i></h3>
+                <div class="carousel">
+                    {% for manga in recommended_mangas %}
+                    <div class="card">
+                        {% if manga.cover %}
+                        <img src="{{ manga.cover.url }}" class="card-img-top" alt="{{ manga.title }}">
+                        {% endif %}
+                        <div class="card-body p-2">
+                            <h6 class="card-title text-white">{{ manga.title|truncatechars:20 }}</h6>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-danger">{{ manga.rating }}/5.0</span>
+                                {% if manga.slug %}
+                                <a href="{% url 'manga:detail' manga.slug %}" class="btn btn-sm btn-danger mt-2">
+                                    <i class="fas fa-book-open"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-white">Aucun manga populaire pour le moment.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endblock %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-4 mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="neon-text"><i class="fas fa-dragon"></i> AnimeHub</h5>
+                    <p class="text-muted">Votre destination ultime pour les animes et mangas.</p>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <h5>Liens rapides</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'anime:list' %}" class="text-decoration-none">Animes</a></li>
+                        <li><a href="{% url 'manga:list' %}" class="text-decoration-none">Mangas</a></li>
+                        <li><a href="/about" class="text-decoration-none">À propos</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <h5>Réseaux sociaux</h5>
+                    <div class="social-links">
+                        <a href="#" class="me-3"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center pt-3 border-top border-secondary">
+                <p class="mb-0 text-muted">© 2024 AnimeHub. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

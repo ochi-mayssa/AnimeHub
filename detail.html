@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="anime-detail">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{{ anime.cover.url }}" class="img-fluid rounded" alt="{{ anime.title }}">
+        </div>
+        <div class="col-md-8">
+            <h1 class="neon-text">{{ anime.title }}</h1>
+            <div class="meta-info mb-4">
+                <span class="badge bg-primary me-2">{{ anime.studio }}</span>
+                <span class="badge bg-success me-2">{{ anime.status|title }}</span>
+                <span class="text-warning">
+                    <i class="fas fa-star"></i> {{ anime.rating }} / 10
+                </span>
+            </div>
+            <p>{{ anime.description }}</p>
+            <div class="genres mb-4">
+                {% for genre in anime.genres.all %}
+                <span class="badge bg-secondary me-1">
+                    <i class="{{ genre.icon }}"></i> {{ genre.name }}
+                </span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="episode-list mt-5">
+        <h3 class="neon-text">Episodes</h3>
+        <div class="row">
+            {% for episode in episodes %}
+            <div class="col-md-2 mb-3">
+                <a href="{% url 'anime:episode_view' anime.slug episode.episode_number %}" 
+                   class="btn btn-anime w-100">
+                    Ep {{ episode.episode_number }}
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

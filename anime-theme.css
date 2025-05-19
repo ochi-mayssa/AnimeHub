@@ -1,0 +1,57 @@
+:root {
+    --main-color: #6c5ce7;
+    --dark-color: #2d3436;
+    --accent-color:rgb(213, 43, 43);
+    --light-color: #dfe6e9;
+}
+
+body {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: var(--light-color);
+    font-family: 'Arial Rounded MT Bold', sans-serif;
+}
+
+.navbar {
+    background: rgba(0, 0, 0, 0.8) !important;
+    border-bottom: 2px solid var(--main-color);
+}
+
+.anime-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+    border: 1px solid var(--main-color);
+}
+
+.anime-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(108, 92, 231, 0.2);
+}
+
+.btn-anime {
+    background: var(--main-color);
+    color: white;
+    border-radius: 25px;
+    padding: 10px 25px;
+    transition: all 0.3s ease;
+}
+
+.btn-anime:hover {
+    background: var(--accent-color);
+    color: white;
+    transform: scale(1.05);
+}
+
+.episode-list {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.chapter-nav {
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px;
+}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="hero-section text-center mb-5">
+    <div class="container">
+        <h1 class="neon-text display-4 mb-4">Welcome to AnimeFlix</h1>
+        <p class="lead">Your ultimate destination for anime and manga</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card anime-card">
+            <div class="card-body">
+                <h3 class="card-title"><i class="fas fa-fire me-2"></i>Trending Anime</h3>
+                <div class="list-group">
+                    {% for anime in trending_anime %}
+                    <a href="{% url 'anime:detail' anime.slug %}" 
+                       class="list-group-item list-group-item-action bg-dark text-light">
+                        {{ anime.title }}
+                        <span class="badge bg-primary float-end">{{ anime.status|title }}</span>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card anime-card">
+            <div class="card-body">
+                <h3 class="card-title"><i class="fas fa-star me-2"></i>Popular Manga</h3>
+                <div class="list-group">
+                    {% for manga in popular_manga %}
+                    <a href="{% url 'manga:detail' manga.slug %}" 
+                       class="list-group-item list-group-item-action bg-dark text-light">
+                        {{ manga.title }}
+                        <span class="badge bg-primary float-end">{{ manga.status|title }}</span>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

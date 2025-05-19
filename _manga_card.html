@@ -1,0 +1,17 @@
+<div class="card manga-card h-100">
+    <img src="{{ manga.cover.url }}" class="card-img-top" alt="{{ manga.title }}">
+    <div class="card-body">
+        <h5 class="card-title">{{ manga.title }}</h5>
+        <div class="d-flex justify-content-between align-items-center">
+            <span class="badge bg-primary">{{ manga.get_status_display }}</span>
+            <span class="text-warning">
+                <i class="fas fa-star"></i> {{ manga.rating }}
+            </span>
+        </div>
+    </div>
+    <div class="card-footer bg-dark">
+        <a href="{% url 'manga.detail' manga.slug %}" class="btn btn-anime w-100">
+            Lire <i class="fas fa-arrow-right ms-2"></i>
+        </a>
+    </div>
+</div>

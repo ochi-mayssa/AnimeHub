@@ -1,0 +1,147 @@
+:root {
+    --main-color: #FF6B6B;
+    --dark-color: #2D3436;
+    --accent-color: #4ECDC4;
+    --light-color: #F9F9F9;
+}
+
+body {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: var(--light-color);
+    font-family: 'Arial Rounded MT Bold', sans-serif;
+}
+
+.anime-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+    border: 1px solid var(--main-color);
+    overflow: hidden;
+}
+
+.anime-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+}
+
+.neon-text {
+    color: var(--main-color);
+    text-shadow: 0 0 10px rgba(255, 107, 107, 0.7);
+}
+
+.btn-anime {
+    background: var(--main-color);
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.btn-anime:hover {
+    background: var(--accent-color);
+    transform: scale(1.05);
+}
+
+.manga-reader img {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(78, 205, 196, 0.3);
+}
+.trending-card {
+    min-width: 250px;
+    max-width: 300px;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.trending-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 65, 108, 0.7);
+}
+
+.trending-card img {
+    height: 350px;
+    object-fit: cover;
+}
+
+.overlay-gradient {
+    background: linear-gradient(0deg, rgba(0,0,0,0.9) 10%, rgba(0,0,0,0.3) 50%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.trending-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+}
+
+.trending-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.trending-scroll::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+.trending-scroll::-webkit-scrollbar-thumb {
+    background:rgb(197, 17, 59);
+    border-radius: 4px;
+}
+/* Anime/Manga Cards */
+.anime-card, .manga-card {
+    background: #1a1a1a;
+    border: 1px solid #343a40;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.anime-card:hover, .manga-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
+}
+
+.card-img-top {
+    height: 300px;
+    object-fit: cover;
+    border-bottom: 2px solid #343a40;
+}
+
+/* Badge Styles */
+.badge {
+    font-weight: 500;
+    padding: 0.5em 0.8em;
+}
+
+.bg-primary { background-color:rgb(207, 14, 59) !important; }
+.bg-success { background-color: #00bf72 !important; }
+.bg-warning { background-color: #ffd700 !important; }
+.bg-info { background-color: #00b4d8 !important; }
+
+/* Info Text */
+.text-muted {
+    color: #8e8e8e !important;
+}
+
+/* Buttons */
+.btn-outline-light {
+    border-color: #495057;
+    color: #f8f9fa;
+}
+
+.btn-outline-light:hover {
+    background-color: #343a40;
+    border-color: #f8f9fa;
+}
+
+.neon-text {
+    text-shadow: 0 0 10px rgba(255, 65, 108, 0.8);
+}

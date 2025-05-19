@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="anime-player">
+    <div class="player-header mb-4">
+        <h1 class="neon-text">{{ anime.title }}</h1>
+        <h3 class="text-accent">Episode {{ episode.episode_number }} - {{ episode.title }}</h3>
+    </div>
+
+    <div class="video-container mb-4">
+        <div class="ratio ratio-16x9">
+            <video controls class="anime-video" width="100%">
+                <source src="{{ episode.video_file.url }}" type="video/mp4">
+                Votre navigateur ne supporte pas les vidéos HTML5.
+            </video>
+        </div>
+    </div>
+
+    <div class="episode-nav d-flex justify-content-between p-3">
+        {% if prev_episode %}
+        <a href="{% url 'anime:episode_view' anime.slug prev_episode.episode_number %}" 
+           class="btn btn-anime">
+            <i class="fas fa-arrow-left"></i> Previous Episode
+        </a>
+        {% endif %}
+        
+        <a href="{% url 'anime:detail' anime.slug %}" 
+           class="btn btn-anime">
+            <i class="fas fa-list"></i> Episode List
+        </a>
+
+        {% if next_episode %}
+        <a href="{% url 'anime:episode_view' anime.slug next_episode.episode_number %}" 
+           class="btn btn-anime">
+            Next Episode <i class="fas fa-arrow-right"></i>
+        </a>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .anime-video {
+        border-radius: 10px;
+        background: #000;
+        box-shadow: 0 0 15px rgba(100, 65, 164, 0.5);
+    }
+    
+    .episode-nav {
+        background: rgba(0, 0, 0, 0.9);
+        border-radius: 10px;
+        margin: 0 15px;
+    }
+
+    .neon-text {
+        color: #fff;
+        text-shadow: 0 0 10px #6465ff;
+    }
+</style>
+{% endblock %}

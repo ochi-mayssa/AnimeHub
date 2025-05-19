@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2 class="neon-text mb-4">Anime du genre : {{ genre.name }}</h2>
+    <div class="row">
+        {% for anime in anime_list %}
+        <div class="col-md-3 mb-4">
+            <div class="card anime-card h-100">
+                <img src="{{ anime.cover.url }}" class="card-img-top" alt="{{ anime.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ anime.title }}</h5>
+                    <a href="{% url 'anime:detail' anime.slug %}" class="btn btn-anime w-100">
+                        Voir les détails
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center">Aucun anime trouvé dans cette catégorie.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

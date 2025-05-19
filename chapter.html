@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="manga-reader">
+    <div class="text-center mb-4">
+        <h1 class="neon-text">{{ chapter.manga.title }}</h1>
+        <h3 class="text-accent">Chapter {{ chapter.chapter_number }} - {{ chapter.title }}</h3>
+    </div>
+
+    <div class="pages-container">
+        {% for page in pages %}
+        <div class="page-item">
+            <img src="{{ page.image.url }}" class="img-fluid manga-page" alt="Page {{ page.page_number }}">
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="chapter-nav d-flex justify-content-between p-3">
+        {% if prev_chapter %}
+        <a href="{% url 'chapter_view' chapter.manga.slug prev_chapter.chapter_number %}" 
+           class="btn btn-anime">
+            <i class="fas fa-arrow-left"></i> Previous Chapter
+        </a>
+        {% endif %}
+        
+        <a href="{% url 'manga:detail' chapter.manga.slug %}" 
+           class="btn btn-anime">
+            <i class="fas fa-list"></i> Back to Manga
+        </a>
+
+        {% if next_chapter %}
+        <a href="{% url 'chapter_view' chapter.manga.slug next_chapter.chapter_number %}" 
+           class="btn btn-anime">
+            Next Chapter <i class="fas fa-arrow-right"></i>
+        </a>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+.manga-page {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(108, 92, 231, 0.3);
+  border-radius: 5px;
+  
+  /* Centrage avancé */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  /* Style supplémentaire pour l'esthétique manga */
+  background: linear-gradient(45deg, #ffffff, #f8f6ff);
+  border: 1px solid #6c5ce7;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ajout d'un effet manga supplémentaire */
+.manga-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(108, 92, 231, 0.1) 50%,
+    transparent 100%
+  );
+  animation: manga-shine 3s infinite;
+}
+
+@keyframes manga-shine {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+    
+    .chapter-nav {
+        background: rgba(0, 0, 0, 0.9);
+        border-radius: 10px;
+        margin-top: 30px;
+    }
+</style>
+{% endblock %}
