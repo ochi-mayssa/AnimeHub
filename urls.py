@@ -1,11 +1,10 @@
-from django.contrib import admin
-from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
+from django.urls import path
+from . import views
+
+app_name = 'manga'  
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('core.urls', namespace='core')),
-    path('anime/', include('anime.urls', namespace='anime')),
-    path('manga/', include('manga.urls',namespace='manga')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('list.html', views.manga_list, name='list'),
+    path('<slug:slug>/', views.manga_detail, name='detail'),
+    path('<slug:slug>/chapter/<int:chapter_number>/', views.chapter_view, name='chapter_view'), 
+]
